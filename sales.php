@@ -55,13 +55,13 @@
     //connection is successful
     else {
     //connect to table applications
-        $sql_table="grocery";
+        $sql_table="sales";
         
         //if display all button is clicked, selects all columns and rows from table
         if(isset($_POST['display_all'])){
             $val = trim($_POST["val"]);
-            $query = "select grocery_id, price, item_name FROM $sql_table 
-            ORDER BY grocery_id"; 
+            $query = "select sale_id, item_name, stock FROM $sql_table
+            ORDER BY sale_id"; 
             $result = mysqli_query($conn, $query);
 
             if (!$result) {
@@ -71,16 +71,16 @@
             else {
                 echo "<table border=\"1\">\n";
                 echo "<tr>\n"
-                ."<th scope=\"col\">grocery_id</th>\n"            
-                ."<th scope=\"col\">price</th>\n" 
+                ."<th scope=\"col\">sale_id</th>\n"            
                 ."<th scope=\"col\">item_name</th>\n"
+                ."<th scope=\"col\">stock</th>\n" 
                 ."</tr>\n ";
                 //loops throgh rows for the result
                 while ($row = mysqli_fetch_assoc($result)) {
                     echo "<tr>\n ";
-                    echo "<td>", $row["grocery_id"], "</td>\n "; 
-                    echo "<td>", $row["price"],"</td>\n"; 
-                    echo "<td>", $row["item_name"], "</td>\n ";
+                    echo "<td>", $row["sale_id"], "</td>\n "; 
+                    echo "<td>", $row["item_name"],"</td>\n"; 
+                    echo "<td>", $row["stock"], "</td>\n ";
 
                     echo "</tr>\n ";
                 }
@@ -91,12 +91,11 @@
         //if the submit button is pressed takes the entered value and finds the needed rows 
         else if(isset($_POST['submit'])){
             $val = trim($_POST["val"]);
-            $query = "select grocery_id, price, item_name FROM $sql_table 
-            ORDER BY grocery_id FROM $sql_table 
-            WHERE grocery_id LIKE '$val%' 
-            OR price LIKE '$val%'
-            OR item_name LIKE '$val%'
-            ORDER BY grocery_id";
+            $query = "SELECT sale_id, item_name, stock FROM $sql_table 
+            WHERE sale_id LIKE '$val' 
+            OR item_name LIKE '$val'
+            OR stock LIKE '$val'
+            ORDER BY sale_id";
             $result = mysqli_query($conn, $query);
 
             if (!$result) {
@@ -106,16 +105,16 @@
             else {
                 echo "<table border=\"1\">\n";
                 echo "<tr>\n"
-                ."<th scope=\"col\">grocery_id</th>\n"            
-                ."<th scope=\"col\">price</th>\n" 
+                ."<th scope=\"col\">sale_id</th>\n"            
                 ."<th scope=\"col\">item_name</th>\n" 
+                ."<th scope=\"col\">stock</th>\n" 
                 ."</tr>\n ";
 
                 while ($row = mysqli_fetch_assoc($result)) {
                     echo "<tr>\n ";
-                    echo "<td>", $row["grocery_id"], "</td>\n "; 
-                    echo "<td>", $row["price"],"</td>\n"; 
+                    echo "<td>", $row["sale_id"], "</td>\n "; 
                     echo "<td>", $row["item_name"], "</td>\n ";
+                    echo "<td>", $row["stock"],"</td>\n"; 
 
                     echo "</tr>\n ";
                 }

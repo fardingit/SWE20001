@@ -34,7 +34,6 @@
             
                 <input type="submit" name="submit" value="Search" />
                 <input type="submit" name="delete" value="Delete">
-                <input type="submit" name="Edit" value="Edit">
                 <input type="submit" name="display_all" value="Display whole table">
             </p>
 

@@ -34,7 +34,8 @@
             
                 <input type="submit" name="submit" value="Search" />
                 <input type="submit" name="delete" value="Delete">
-                <input type="submit" name="Edit" value="Edit">
+                <input type="text" name="edit_val" id="edit_val" placeholder="Enter ID or EOInumber to edit" />
+                <input type="submit" name="edit" value="Edit">
                 <input type="submit" name="display_all" value="Display whole table">
             </p>
 
@@ -164,6 +165,76 @@
             } 
             
         }
+        //Edit button pressed
+        else if (isset($_POST['edit'])) {
+            $edit_val = trim($_POST["edit_val"]);
+    
+            // Construct a query to retrieve the member's information for editing
+            $query = "SELECT * FROM $sql_table WHERE EOInumber = '$edit_val'";
+    
+            $result = mysqli_query($conn, $query);
+    
+            if (!$result) {
+                echo "<p>Something is wrong with ", $query, "</p>";
+            }else {
+                $row = mysqli_fetch_assoc($result);
+    
+                if ($row) {
+                    // Display a form with the member's current information for editing
+                    echo "<h2>Edit Member</h2>";
+                    echo "<form method='post'>";
+                    echo "<label for='edited_EOInumber' title='This field is unchangeable'>EOInumber:</label>";
+                    echo "<input type='text' name='edited_EOInumber' value='{$row['EOInumber']}' id='edited_EOInumber' readonly disabled><br>";
+                    echo "Last Name: <input type='text' name='edited_last_name' value='{$row['last_name']}'><br>";
+                    echo "First Name: <input type='text' name='edited_first_name' value='{$row['first_name']}'><br>";
+                    echo "Street: <input type='text' name='edited_street' value='{$row['street']}'><br>";
+                    echo "Suburb: <input type='text' name='edited_suburb' value='{$row['suburb']}'><br>";
+                    echo "State: <input type='text' name='edited_state' value='{$row['state']}'><br>";
+                    echo "Postcode: <input type='text' name='edited_post' value='{$row['postcode']}'><br>";
+                    echo "Email: <input type='text' name='edited_email' value='{$row['email']}'><br>";
+                    echo "Number: <input type='text' name='edited_number' value='{$row['number']}'><br>";
+
+                    echo "<input type='submit' name='update' value='Update'>";
+                    echo "</form>";
+                } else {
+                    echo "<p>No member found with ID or EOInumber: $edit_val</p>";
+                }
+    
+                mysqli_free_result($result);
+            }
+        }
+            if (isset($_POST['update'])) {
+                $edited_EOInumber = trim($_POST["edited_EOInumber"]);
+                $edited_last_name = trim($_POST["edited_last_name"]);
+                $edited_first_name = trim($_POST["edited_first_name"]);
+                $edited_street = trim($_POST["edited_street"]);
+                $edited_suburb = trim($_POST["edited_suburb"]);
+                $edited_state = trim($_POST["edited_state"]);
+                $edited_postcode = trim($_POST["edited_post"]);
+                $edited_email = trim($_POST["edited_email"]);
+                $edited_number = trim($_POST["edited_number"]);
+          
+        
+                // Construct an SQL UPDATE query
+                $update_query = "UPDATE $sql_table SET 
+                                 last_name = '$edited_last_name', 
+                                 first_name = '$edited_first_name',
+                                 street = '$edited_street',
+                                 suburb = '$edited_suburb',
+                                 state = '$edited_state' ,
+                                 postcode = '$edited_postcode',
+                                 email = '$edited_email' ,
+                                 number = '$edited_number'                                 
+                                 WHERE EOInumber = '$edited_EOInumber'";
+        
+                $update_result = mysqli_query($conn, $update_query);
+        
+                if (!$update_result) {
+                    echo "<p>Something is wrong with the update query</p>";
+                } else {
+                    echo "<p>Member information updated successfully!</p>";
+                }
+            }
 
         mysqli_close($conn);
     } 

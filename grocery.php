@@ -34,7 +34,6 @@
             <p class="val"> <input type="text" name="val" id="val" />
                 <input type="submit" name="search" value="Search" />
                 <input type="submit" name="delete" value="Delete">
-                <input type="submit" name="edit" value="Edit">
                 <input type="submit" name="display_all" value="Display whole table">
             </p>
 

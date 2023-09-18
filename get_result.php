@@ -1,5 +1,6 @@
 <?php
 require_once('GotoGro.php');
+error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
 
 use GotoGro as GG;
 
@@ -36,7 +37,14 @@ else if (isset($_POST['delete'])) {
         echo "<p> Nothing deleted? </p>";
     } else $err_flag = true;
 }
+else if (isset($_POST['edit'])) {
+    $val = trim($_POST["val"]);
+    $result = GG\edit($sql_table, $val);
+    if ($result ) {
+        echo "<p> RECORD EDITED! </p>";
+    } ;
+}
 
 if (isset($err_flag)) {
-    echo "<p>Something is wrong with ", $query, "</p>";
+    echo "<p>Something is wrong with:", $query, "</p>";
 }

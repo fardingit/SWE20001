@@ -74,7 +74,58 @@ function delete($table, $input)
 
 function edit($table, $input)
 {
-    //TODO    
+    $db = create_connection();
+    $query = "SELECT * FROM $table WHERE grocery_id = '$input'";
+    $result = mysqli_query($db, $query);
+    if (!$result) {
+        echo "<p>Something is wrong with ", $query, "</p>";
+    }else {
+        $row = mysqli_fetch_assoc($result);
+        if ($row) {
+            // Display a form with the member's current information for editing
+            echo "<h2>Edit Item</h2>";
+            echo "<form method='post'>";
+            
+            echo "Grocery ID: <input type='text' name='edited_groceryid' value='{$row['grocery_id']}'><br>";
+            echo "Price: <input type='text' name='edited_price' value='{$row['price']}'><br>";
+            echo "Item name: <input type='text' name='edited_itemname' value='{$row['item_name']}'><br>";
+            echo "Stock: <input type='text' name='edited_stock' value='{$row['stock']}'><br>";
+
+            echo "<input type='submit' name='update' value='Update'>";
+            echo "</form>";
+        } else {
+            echo "<p>No item found with ID: $input</p>";
+        }
+
+        mysqli_free_result($result);
+        if (isset($_POST['update'])) {
+            $edited_groceryid = trim($_POST["edited_groceryid"]);
+            $edited_price = trim($_POST["edited_price"]);
+            $edited_itemname = trim($_POST["edited_itemname"]);
+            $edited_stock = trim($_POST["edited_stock"]);
+    
+            // Construct an SQL UPDATE query
+            $update_query = "UPDATE $table SET 
+                             price = '$edited_price', 
+                             item_name = '$edited_itemname',
+                             stock = '$edited_stock',
+                             grocery_id = '$edited_groceryid'                                 
+                             WHERE grocery_id = '$edited_groceryid'";
+    
+            $update_result = mysqli_query($db, $update_query);
+    
+            if (!$update_result) {
+                echo "<p>Something is wrong with the update query</p>";
+            } else {
+                echo "<p>Member information updated successfully!</p>";
+            }
+            return $update_result;
+        }
+    }
+    
+    $db->close();
+
+    
 }
 
 function display_all($table)

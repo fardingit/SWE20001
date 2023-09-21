@@ -10,7 +10,7 @@
         $q= "update grocerytb set Item_name='$item_name', Item_Quantity='$item_qty', 
         Item_status='$istatus', Date='$date' where Id=$id";
         $query=mysqli_query($con,$q);
-        header('location:index.php');
+        header('location:GotoGro.php');
     } 
     else if(isset($_GET['id'])) 
     {

@@ -3,6 +3,7 @@ require_once('GotoGro.php');
 error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
 
 use GotoGro as GG;
+$query = "";
 
 //if the search button is pressed takes the entered value and finds the needed rows 
 if (isset($_POST['search'])) {
@@ -37,12 +38,35 @@ else if (isset($_POST['delete'])) {
         echo "<p> Nothing deleted? </p>";
     } else $err_flag = true;
 }
+
+// Retrieve values for editing
 else if (isset($_POST['edit'])) {
     $val = trim($_POST["val"]);
-    $result = GG\edit($sql_table, $val);
-    if ($result ) {
-        echo "<p> RECORD EDITED! </p>";
-    } ;
+    GG\edit($sql_table, $val);
+}
+
+// Send edited values to update
+if (isset($_POST['update'])) {
+    $edited_groceryid = trim($_POST["edited_groceryid"]);
+    $edited_price = trim($_POST["edited_price"]);
+    $edited_itemname = trim($_POST["edited_itemname"]);
+    $edited_stock = trim($_POST["edited_stock"]);
+
+    // Construct an SQL UPDATE query
+    $update_query = "UPDATE $sql_table SET 
+                     price = '$edited_price', 
+                     item_name = '$edited_itemname',
+                     stock = '$edited_stock'
+                     WHERE grocery_id = '$edited_groceryid'";
+
+    $update_result = GG\update($update_query); // mysqli_query($db, $update_query);
+
+    if (!$update_result) {
+        echo "<p>Something is wrong with {$update_query}</p>";
+    } else {
+        echo "<p>Grocery information updated successfully!</p>";
+    }
+    return $update_result;
 }
 
 if (isset($err_flag)) {

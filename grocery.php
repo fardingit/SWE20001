@@ -40,6 +40,18 @@
 
         </form>
 
+        <form method="post">
+
+            <p class="val">
+                Add Grocery<br>
+                <label for="name_input">Name:</label> <input type="text" name="name" id="name_input" required/>
+                <label for="price_input">Price: $</label> <input type="number" name="price" size="8" id="price_input" required/>
+                <label for="stock_input">Stock:</label><input type="number" name="stock" size="8" id="stock_input"/>
+                <input type="submit" name="add" value="Add">
+            </p>
+
+        </form>
+
         <?php
         $sql_table = "grocery";
         include 'get_result.php';

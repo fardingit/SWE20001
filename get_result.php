@@ -3,6 +3,7 @@ require_once('GotoGro.php');
 error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
 
 use GotoGro as GG;
+
 $query = "";
 
 //if the search button is pressed takes the entered value and finds the needed rows 
@@ -27,7 +28,15 @@ else if (isset($_POST['display_all'])) {
     } else $err_flag = true;
 }
 
-//Delete button pressed, takes the value of entered and deletes all positions with that value
+// Add function
+else if (isset($_POST['add'])) {
+    $result = GG\add($sql_table);
+    if ($result) {
+        echo "{$_POST['name']} successfully added!";
+    } else $err_flag = true;
+}
+
+// Delete button pressed, takes the value of entered and deletes all positions with that value
 else if (isset($_POST['delete'])) {
     $val = trim($_POST["val"]);
     $result = GG\delete($sql_table, $val);

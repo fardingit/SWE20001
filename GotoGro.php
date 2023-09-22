@@ -21,6 +21,30 @@ function create_connection()
     return $conn;
 }
 
+function add($table)
+{
+    $db = create_connection();
+    global $query;
+    switch ($table) {
+        case 'grocery':
+            $query = "INSERT INTO grocery (item_name, price, stock) VALUES ('{$_POST['name']}', '{$_POST['price']}', '{$_POST['stock']}' )";
+            break;
+        case 'sales':
+            $query = "";
+            break;
+        case 'member':
+            $query = "";
+            break;
+        default:
+            throw new \Exception("Invalid table name: $table", 1);
+            break;
+    }
+
+    $result = mysqli_query($db, $query);
+    $db->close();
+    return $result;
+}
+
 function search($table, $input)
 {
     $db = create_connection();

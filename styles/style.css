@@ -1,0 +1,11 @@
+form {
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    width: 300px;
+}
+
+label, input, small {
+    display: block;
+    margin-bottom: 10px;
+}

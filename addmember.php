@@ -23,7 +23,8 @@
         <label for="address">Address:</label>
         <input type="text" id="address" name="address" required><br>
 
-        <input type="submit" value="Confirm">
+        <button type="submit">Add Member</button>
+
     </form>
 
     <script src="script.js"></script>

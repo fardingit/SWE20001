@@ -58,7 +58,7 @@ function search($table, $input)
             $query = "SELECT * FROM sales WHERE sale_id LIKE '$input' OR item_name LIKE '$input' OR stock LIKE '$input' ORDER BY sale_id";
             break;
         case 'member':
-            $query = "SELECT * FROM member WHERE memberID LIKE '$input' OR first_name LIKE '$input' OR last_name LIKE '$input' ORDER BY memberID";
+            $query = "SELECT * FROM $table WHERE last_name LIKE '$input' OR first_name LIKE '$input' OR CONCAT_WS(' ',last_name, first_name) LIKE '$input' OR CONCAT_WS(' ',first_name, last_name) LIKE  '$input' OR memberID LIKE '$input' ORDER BY memberID";
             break;
         default:
             throw new \Exception("Invalid table name: $table", 1);
@@ -102,25 +102,67 @@ function edit($table, $input)
 {
     global $query;
     $db = create_connection();
-    $query = "SELECT * FROM $table WHERE grocery_id = '$input'";
+
+    $id_name = "";
+
+    switch ($table) {
+        case 'grocery':
+            $id_name = "grocery_id";
+            break;
+        case 'member':
+            $id_name = "memberID";
+            break;
+        default:
+            # code...
+            break;
+    }
+
+    $query = "SELECT * FROM $table WHERE $id_name = '$input'";
     $result = mysqli_query($db, $query);
     if (!$result) {
         echo "<p>Something is wrong with ", $query, "</p>";
     } else {
         $row = mysqli_fetch_assoc($result);
         if ($row) {
-            // Display a form with the member's current information for editing
-            echo "<h2>Edit Item</h2>";
-            echo "<form method='post'>";
+            switch ($table) {
+                case 'grocery':
+                    // Display a form with the grocery item's current information for editing
+                    echo "<h2>Edit Item</h2>";
+                    echo "<form method='post'>";
 
-            echo "Grocery ID: {$row['grocery_id']}<br>";
-            echo "<input type='hidden' name='edited_groceryid' value='{$row['grocery_id']}' >";
-            echo "Price: <input type='text' name='edited_price' value='{$row['price']}'><br>";
-            echo "Item name: <input type='text' name='edited_itemname' value='{$row['item_name']}'><br>";
-            echo "Stock: <input type='text' name='edited_stock' value='{$row['stock']}'><br>";
+                    echo "Grocery ID: {$row['grocery_id']}<br>";
+                    echo "<input type='hidden' name='edited_groceryid' value='{$row['grocery_id']}' >";
+                    echo "Price: <input type='text' name='edited_price' value='{$row['price']}'><br>";
+                    echo "Item name: <input type='text' name='edited_itemname' value='{$row['item_name']}'><br>";
+                    echo "Stock: <input type='text' name='edited_stock' value='{$row['stock']}'><br>";
 
-            echo "<input type='submit' name='update' value='Update'>";
-            echo "</form>";
+                    echo "<input type='submit' name='update' value='Update'>";
+                    echo "</form>";
+                    break;
+
+                case 'member':
+                    // Display a form with the member's current information for editing
+                    echo "<h2>Edit Member</h2>";
+                    echo "<form method='post'>";
+                    echo "Member ID: {$row['memberID']}<br>";
+                    echo "<input type='text' name='edited_memberID' value='{$row['memberID']}' id='edited_memberID' readonly hidden>";
+                    echo "Last Name: <input type='text' name='edited_last_name' value='{$row['last_name']}'><br>";
+                    echo "First Name: <input type='text' name='edited_first_name' value='{$row['first_name']}'><br>";
+                    echo "Street: <input type='text' name='edited_street' value='{$row['street']}'><br>";
+                    echo "Suburb: <input type='text' name='edited_suburb' value='{$row['suburb']}'><br>";
+                    echo "State: <input type='text' name='edited_state' value='{$row['state']}'><br>";
+                    echo "Postcode: <input type='text' name='edited_post' value='{$row['postcode']}'><br>";
+                    echo "Email: <input type='text' name='edited_email' value='{$row['email']}'><br>";
+                    echo "Number: <input type='text' name='edited_number' value='{$row['number']}'><br>";
+
+                    echo "<input type='submit' name='update' value='Update'>";
+                    echo "</form>";
+                    break;
+
+                default:
+                    # code...
+                    break;
+            }
         } else {
             echo "<p>No item found with ID: $input</p>";
         }

@@ -56,24 +56,55 @@ else if (isset($_POST['edit'])) {
 
 // Send edited values to update
 if (isset($_POST['update'])) {
-    $edited_groceryid = trim($_POST["edited_groceryid"]);
-    $edited_price = trim($_POST["edited_price"]);
-    $edited_itemname = trim($_POST["edited_itemname"]);
-    $edited_stock = trim($_POST["edited_stock"]);
 
-    // Construct an SQL UPDATE query
-    $update_query = "UPDATE $sql_table SET 
+    switch ($sql_table) {
+        case 'grocery':
+            $edited_groceryid = trim($_POST["edited_groceryid"]);
+            $edited_price = trim($_POST["edited_price"]);
+            $edited_itemname = trim($_POST["edited_itemname"]);
+            $edited_stock = trim($_POST["edited_stock"]);
+
+            // Construct an SQL UPDATE query
+            $update_query = "UPDATE $sql_table SET 
                      price = '$edited_price', 
                      item_name = '$edited_itemname',
                      stock = '$edited_stock'
                      WHERE grocery_id = '$edited_groceryid'";
+            break;
+        case 'member':
+            $edited_memberID = trim($_POST["edited_memberID"]);
+            $edited_last_name = trim($_POST["edited_last_name"]);
+            $edited_first_name = trim($_POST["edited_first_name"]);
+            $edited_street = trim($_POST["edited_street"]);
+            $edited_suburb = trim($_POST["edited_suburb"]);
+            $edited_state = trim($_POST["edited_state"]);
+            $edited_post = trim($_POST["edited_post"]);
+            $edited_email = trim($_POST["edited_email"]);
+            $edited_number = trim($_POST["edited_number"]);
 
+            // Construct an SQL UPDATE query
+            $update_query = "UPDATE $sql_table SET 
+            last_name = '$edited_last_name',
+            first_name = '$edited_first_name',
+            street = '$edited_street',
+            suburb = '$edited_suburb',
+            state = '$edited_state',
+            postcode = '$edited_post',
+            email = '$edited_email',
+            number = '$edited_number'
+            WHERE memberID = '$edited_memberID'";
+            break;
+
+        default:
+            # code...
+            break;
+    }
     $update_result = GG\update($update_query); // mysqli_query($db, $update_query);
 
     if (!$update_result) {
         echo "<p>Something is wrong with {$update_query}</p>";
     } else {
-        echo "<p>Grocery information updated successfully!</p>";
+        echo "<p>Information updated successfully!</p>";
     }
     return $update_result;
 }

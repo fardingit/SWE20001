@@ -10,7 +10,7 @@ document.getElementById('addMemberForm').addEventListener('submit', function (e)
     // Validate the inputs if necessary
 
     // Send a request to a server-side script to save the member's details
-    fetch('saveMember.php', {
+    fetch('saveMemberAction.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',

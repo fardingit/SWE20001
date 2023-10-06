@@ -45,8 +45,8 @@
             <p class="val">
                 Add Grocery<br>
                 <label for="name_input">Name:</label> <input type="text" name="name" id="name_input" pattern="[A-Za-z]{0,20}" required/>
-                <label for="price_input">Price: $</label> <input type="number" name="price" size="8" id="price_input" pattern="[0-9]{4}" required/>
-                <label for="stock_input">Stock:</label><input type="number" name="stock" size="8" pattern="[0-9]{5}" id="stock_input"/>
+                <label for="price_input">Price: $</label> <input type="number" name="price" size="8" id="price_input" pattern="[0-9]{0,4}" required/>
+                <label for="stock_input">Stock:</label><input type="number" name="stock" size="8" pattern="[0-9]{0,5}" id="stock_input"/>
                 <input type="submit" name="add" value="Add">
             </p>
 

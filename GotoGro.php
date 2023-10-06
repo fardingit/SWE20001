@@ -159,6 +159,20 @@ function edit($table, $input)
                     echo "</form>";
                     break;
 
+                    // case 'sales':
+                    //     // Display a form with the grocery item's current information for editing
+                    //     echo "<h2>Edit Item</h2>";
+                    //     echo "<form method='post'>";
+    
+                    //     echo "Grocery ID: {$row['grocery_id']}<br>";
+                    //     echo "<input type='hidden' name='edited_groceryid' value='{$row['grocery_id']}' >";
+                    //     echo "Price: <input type='text' name='edited_price' value='{$row['price']}'><br>";
+                    //     echo "Item name: <input type='text' name='edited_itemname' value='{$row['item_name']}'><br>";
+                    //     echo "Stock: <input type='text' name='edited_stock' value='{$row['stock']}'><br>";
+    
+                    //     echo "<input type='submit' name='update' value='Update'>";
+                    //     echo "</form>";
+                    //     break;
                 default:
                     # code...
                     break;

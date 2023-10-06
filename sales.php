@@ -145,10 +145,10 @@
         else if (isset($_POST['record'])){
             echo "<h2>Record New Sale</h2>";
             echo "<form method='post'>";
-            echo "Sale ID: <input type='text' name='sale_id'><br>";
-            echo "Item Name: <input type='text' name='item_name'><br>";
-            echo "Date: <input type='text' name='date'><br>";
-            echo "Amount: <input type='text' name='amount'><br>";
+            echo "Sale ID: <input type='text' name='sale_id' pattern='[0-9]{0,4}'><br>";
+            echo "Item Name: <input type='text' name='item_name' pattern='[a-zA-z]{0,20}'><br>";
+            echo "Date: <input type='text' name='date' pattern='\d{1,2}/\d{1,2}/\d{4}'><br>";
+            echo "Amount: <input type='text' name='amount'pattern='[0-9]{0,4}'><br>";
             echo "<input type='submit' name='add_sale' value='Add Sale'>";
             echo "</form>";
         }if(isset($_POST['add_sale'])) {

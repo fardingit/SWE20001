@@ -7,6 +7,8 @@
         <meta name="author" content="YM"/>
         <link href="styles/style.css" rel="stylesheet"/>
         
+        <script src="scripts/salesValidation.js"></script>
+
         <title>Home page</title>
     </head>
 
@@ -44,10 +46,19 @@
         
         <p class="val">
             Record New Sale<br>
-            <label for="name_input">Sale ID:</label><input type='text' name='sale_id' pattern='[0-9]{0,4}'><br>
-            <label for="name_input">Item Name:</label><input type='text' name='item_name' pattern='[a-zA-z]{0,20}'><br>
-            <label for="name_input">Date:</label> <input type='text' name='date' pattern='\d{1,2}/\d{1,2}/\d{4}'><br>
-            <label for="name_input">Amount:</label><input type='text' name='amount'pattern='[0-9]{0,4}'><br>
+
+            <label for="item_name">Item Name:</label>
+            <input type='text' name='item_name' pattern='[a-zA-z]{0,20}'><br>
+            <div class="feedback" id="item_name_feedback"></div>
+
+            <label for="date_input">Date:</label> 
+            <input type='text' name='date' pattern='\d{1,2}/\d{1,2}/\d{4}'><br>
+            <div class="feedback" id="date_feedback"></div>
+
+            <label for="amount_input">Amount:</label>
+            <input type='text' name='amount'pattern='[0-9]{0,4}'><br>
+            <div class="feedback" id="amount_feedback"></div>
+
             <input type='submit' name='add_sale' value='Add Sale'>
         </p>
 

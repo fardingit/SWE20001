@@ -9,3 +9,9 @@ label, input, small {
     display: block;
     margin-bottom: 10px;
 }
+
+.feedback {
+    color: red;
+    padding-left: 20px;
+    font-weight:lighter;
+}

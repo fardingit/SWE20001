@@ -8,7 +8,9 @@
     <meta name="author" content="YM" />
     <link href="styles/style.css" rel="stylesheet" />
 
-    <title>Home page</title>
+    <script src="scripts/groceryValidation.js"></script>
+
+    <title>grocery page</title>
 </head>
 
 <body>
@@ -40,13 +42,22 @@
 
         </form>
 
-        <form method="post">
+        <form id="grocery_form" method="post" novalidate>
 
             <p class="val">
                 Add Grocery<br>
-                <label for="name_input">Name:</label> <input type="text" name="name" id="name_input" pattern="[A-Za-z]{0,20}" required/>
-                <label for="price_input">Price: $</label> <input type="number" name="price" size="8" id="price_input" pattern="[0-9]{0,4}" required/>
-                <label for="stock_input">Stock:</label><input type="number" name="stock" size="8" pattern="[0-9]{0,5}" id="stock_input"/>
+                <label for="name_input">Name:</label>
+                <input type="text" name="name" id="name_input" pattern="[A-Za-z]{2,20}" required/>
+                <div class="feedback" id="name_feedback"></div>
+
+                <label for="price_input">Price: $</label>
+                <input type="number" name="price" size="8" id="price_input" pattern="[0-9]{1,4}" required/>
+                <div class="feedback" id="price_feedback"></div>
+
+                <label for="stock_input">Stock:</label>
+                <input type="number" name="stock" size="8" pattern="[0-9]{1,5}" id="stock_input"/>
+                <div class="feedback" id="stock_feedback"></div>
+
                 <input type="submit" name="add" value="Add">
             </p>
 

@@ -6,6 +6,7 @@
         <meta name="keywords" content="manage, ym studio"/>
         <meta name="author" content="YM"/>
         <link href="styles/style.css" rel="stylesheet"/>
+        <script src="scripts/salesValidation.js"></script>
         
         <title>Home page</title>
     </head>
@@ -144,7 +145,7 @@
         }
         else if (isset($_POST['record'])){
             echo "<h2>Record New Sale</h2>";
-            echo "<form method='post'>";
+            echo "<form id='sales_form' method='post' novalidate>";
             echo "Sale ID: <input type='text' name='sale_id' pattern='[0-9]{0,4}'><br>";
             echo "Item Name: <input type='text' name='item_name' pattern='[a-zA-z]{0,20}'><br>";
             echo "Date: <input type='text' name='date' pattern='\d{1,2}/\d{1,2}/\d{4}'><br>";

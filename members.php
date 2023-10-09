@@ -31,6 +31,7 @@
         <form method="post">
 
             <p class="val"> <input type="text" name="val" id="val" />
+                <input type="submit" name="add" value="Add" />
                 <input type="submit" name="search" value="Search" />
                 <input type="submit" name="delete" value="Delete">
                 <input type="submit" name="edit" value="Edit">

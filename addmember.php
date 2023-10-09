@@ -5,12 +5,12 @@
     <meta charset="utf-8" />
     <meta name="description" content="manage page" />
     <meta name="keywords" content="manage, ym studio" />
-    <meta name="author" content="YM" />
+    <meta name="author" content="RSC" />
     <link href="styles/style.css" rel="stylesheet" />
 
     <script src="scripts/memberValidation.js"></script>
 
-    <title>grocery page</title>
+    <title>Member page</title>
 </head>
 
 <body>
@@ -36,7 +36,7 @@
         <input type="text" id="address" name="address" required><br>\
         <div class="feedback" id="address_feedback"></div>
 
-        <button type="submit">Add Member</button>
+        <button type="submit"  name="add" value="Add">Add Member</button>
 
     </form>
 

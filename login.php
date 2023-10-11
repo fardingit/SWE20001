@@ -1,11 +1,6 @@
 <?php
 session_start();
-
-require_once("settings.php");
-    $conn = @mysqli_connect ($host,
-        $user, 
-        $pwd, 
-        $sql_db
+include "userdb_conn.php";
 
 if(isset($_POST['uname']) && isset($_POST['password'])) {
 

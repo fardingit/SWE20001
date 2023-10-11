@@ -13,11 +13,13 @@
     </head>
 
     <body>  
+    
+         <!-- changed the nav bar style -->
         <div id="navbar">
-            <a id="sales_heading" href="sales.php"> Sales</a>
-            <a id="grocery_heading" href="grocery.php">grocery</a>
-            <a id="members_heading" href="members.php">members</a>
             <a id="index_heading" href="index.html">Home</a>
+            <a id="members_heading" href="members.php">Members</a>
+            <a id="grocery_heading" href="grocery.php">Grocery</a>
+            <a id="sales_heading" href="sales.php">Sales</a>
         </div>
 
 

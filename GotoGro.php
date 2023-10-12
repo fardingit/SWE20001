@@ -7,7 +7,7 @@ use mysqli;
 //connects to databse with details form settings file
 function create_connection()
 {
-    require_once("settings.php");
+    require("settings.php");
     $conn = @mysqli_connect(
         $host,
         $user,
@@ -30,7 +30,7 @@ function add($table)
             $query = "INSERT INTO grocery (item_name, price, stock) VALUES ('{$_POST['name']}', '{$_POST['price']}', '{$_POST['stock']}' )";
             break;
         case 'sales':
-            $query = "";
+            $query = "INSERT INTO sales (item_name, date, amount) VALUES ('{$_POST['$item_name']}', '{$_POST['$date']}', '{$_POST['$amount']}' )";
             break;
         case 'member':
             $memberID = mysqli_real_escape_string($db, $_POST['member_id']);
@@ -66,7 +66,7 @@ function search($table, $input)
             $query = "SELECT * FROM grocery WHERE grocery_id LIKE '$input' OR price LIKE '$input' OR item_name LIKE '$input' ORDER BY grocery_id";
             break;
         case 'sales':
-            $query = "SELECT * FROM sales WHERE sale_id LIKE '$input' OR item_name LIKE '$input' OR stock LIKE '$input' ORDER BY sale_id";
+            $query = "SELECT * FROM sales WHERE sale_id LIKE '$input' OR item_name LIKE '$input' OR amount LIKE '$input' OR date LIKE '$input' ORDER BY sale_id";
             break;
         case 'member':
             $query = "SELECT * FROM $table WHERE last_name LIKE '$input' OR first_name LIKE '$input' OR CONCAT_WS(' ',last_name, first_name) LIKE '$input' OR CONCAT_WS(' ',first_name, last_name) LIKE  '$input' OR memberID LIKE '$input' ORDER BY memberID";
@@ -91,7 +91,7 @@ function delete($table, $input)
             $query = "DELETE FROM grocery WHERE grocery_id='$input'";
             break;
         case 'sales':
-            $query = "DELETE FROM sales WHERE sales_id='$input'";
+            $query = "DELETE FROM sales WHERE sale_id='$input'";
             break;
         case 'member':
             $query = "DELETE FROM member WHERE member_id='$input'";
@@ -123,6 +123,10 @@ function edit($table, $input)
         case 'member':
             $id_name = "memberID";
             break;
+        case 'sales':
+            $id_name = "sale_id";
+            break;
+
         default:
             # code...
             break;
@@ -170,20 +174,20 @@ function edit($table, $input)
                     echo "</form>";
                     break;
 
-                    // case 'sales':
-                    //     // Display a form with the grocery item's current information for editing
-                    //     echo "<h2>Edit Item</h2>";
-                    //     echo "<form method='post'>";
+                    case 'sales':
+                        // Display a form with the grocery item's current information for editing
+                         echo "<h2>Edit Item</h2>";
+                         echo "<form method='post'>";
     
-                    //     echo "Grocery ID: {$row['grocery_id']}<br>";
-                    //     echo "<input type='hidden' name='edited_groceryid' value='{$row['grocery_id']}' >";
-                    //     echo "Price: <input type='text' name='edited_price' value='{$row['price']}'><br>";
-                    //     echo "Item name: <input type='text' name='edited_itemname' value='{$row['item_name']}'><br>";
-                    //     echo "Stock: <input type='text' name='edited_stock' value='{$row['stock']}'><br>";
+                         echo "Sales ID: {$row['sale_id']}<br>";
+                         echo "<input type='hidden' name='edited_sale_id' value='{$row['sale_id']}' >";
+                         echo "Item Name: <input type='text' name='edited_salesitemname' value='{$row['salesitemname']}'><br>";
+                         echo "Date: <input type='text' name='edited_date' value='{$row['date']}'><br>";
+                         echo "Amount: <input type='text' name='edited_amount' value='{$row['amount_input']}'><br>";
     
-                    //     echo "<input type='submit' name='update' value='Update'>";
-                    //     echo "</form>";
-                    //     break;
+                         echo "<input type='submit' name='update' value='Update'>";
+                         echo "</form>";
+                         break;
                 default:
                     # code...
                     break;
@@ -229,11 +233,13 @@ function display_all($table)
             break;
     }
 
+    
     $result = mysqli_query($db, $query);
     $db->close();
 
     return $result;
 }
+
 
 function format_table($query_result)
 {

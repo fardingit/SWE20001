@@ -95,19 +95,19 @@ if (isset($_POST['update'])) {
             WHERE memberID = '$edited_memberID'";
             break;
 
-            // case 'sales':
-            //     $edited_salesid = trim($_POST["edited_salesid"]);
-            //     $edited_price = trim($_POST["edited_price"]);
-            //     $edited_itemname = trim($_POST["edited_itemname"]);
-            //     $edited_stock = trim($_POST["edited_stock"]);
+            case 'sales':
+                 $edited_sale_id = trim($_POST["edited_sale_id"]);
+                 $edited_salesitemname = trim($_POST["edited_salesitemname"]);
+                 $edited_date = trim($_POST["edited_date"]);
+                 $edited_amount = trim($_POST["edited_amount"]);
     
-            //     // Construct an SQL UPDATE query
-            //     $update_query = "UPDATE $sql_table SET 
-            //              price = '$edited_price', 
-            //              item_name = '$edited_itemname',
-            //              stock = '$edited_stock'
-            //              WHERE grocery_id = '$edited_groceryid'";
-            //     break;
+                 // Construct an SQL UPDATE query
+                 $update_query = "UPDATE $sql_table SET 
+                        price = '$edited_salesitemname', 
+                        item_name = '$edited_date',
+                        stock = '$edited_amount'
+                        WHERE sale_id = '$edited_sale_id'";
+            break;
 
         default:
             # code...

@@ -18,12 +18,12 @@ if (isset($_SERVER['HTTP_REFERER'])) {//makeshift authentication, checks if refe
     } else {
         echo "<a id='loginref' href='login_index.php'>Login</a>";
         header('HTTP/1.0 403 Forbidden', true, 403);
-        die("<h2>Access Denied!</h2> Please login to gain access.");
+        die("<h2>Please Login</h2>");
     }
 } else {
     echo "<a id='loginref' href='login_index.php'>Login</a>";
     header('HTTP/1.0 403 Forbidden', true, 403);
-    die("<h2>Access Denied!</h2> Please login to gain access.");
+    die("<h2> Please Login</h2>");
 }
 ?>
 <body id="index_body">

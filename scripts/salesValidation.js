@@ -7,7 +7,7 @@ const date_input = document.getElementById("date_input").value;
 const amount_input = document.getElementById("amount_input").value;
 
 const item_name_feedback = document.getElementById("item_name_feedback");
-const date_feedback = document.getElementById("date_feedback");
+const date_input_feedback = document.getElementById("date_input_feedback");
 const amount_feedback = document.getElementById("amount_feedback");
 
 let validations = false;
@@ -31,15 +31,15 @@ if(validations === true) {
 
     //Date validation
     if(date_input == ""){
-        date_feedback.innerHTML = "Enter Date!";
+        date_input_feedback.innerHTML = "Enter Date!";
         result = false;
     }
     else if(!date_input.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/)) {
-        date_feedback.innerHTML = "Date needs to be following format: dd/mm/yyyy!";
+        date_input_feedback.innerHTML = "Date needs to be following format: dd/mm/yyyy!";
         result = false;
     }
     else {
-        date_feedback.innerHTML = "";
+        date_input_feedback.innerHTML = "";
     }
 
     //Amount validation

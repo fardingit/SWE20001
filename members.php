@@ -7,6 +7,7 @@
     <meta name="keywords" content="manage, ym studio" />
     <meta name="author" content="YM" />
     <link href="styles/style.css" rel="stylesheet" />
+    <script src="scripts/memberValidation.js"></script>
 
     <title>Home page</title>
 </head>
@@ -14,7 +15,7 @@
 <body>
      <!-- changed the nav bar style -->
     <div id="navbar">
-        <a id="index_heading" href="index.html">Home</a>
+        <a id="index_heading" href="index.php">Home</a>
         <a id="members_heading" href="members.php">Members</a>
         <a id="grocery_heading" href="grocery.php">Grocery</a>
         <a id="sales_heading" href="sales.php">Sales</a>
@@ -42,37 +43,30 @@
             
         </form>
 
-
-
-
-    </form>
-
         <?php
 
+            $sql_table = "member";
+            include 'get_result.php';
+            if (isset($_POST['add_member'])){//cleaner look, form shows up only when add button is pressed, other functionality refactored into getresult and gotogro.php
+                echo "<h2>Add new member</h2>";
+                echo "<form id='addMemberForm' method='post' novalidate>";
 
-        $sql_table = "member";
-        include 'get_result.php';
-        if (isset($_POST['add_member'])){//cleaner look, form shows up only when add button is pressed, other functionality refactored into getresult and gotogro.php
-            echo "<h2>Add new member</h2>";
-            echo "<form id='addMemberForm' method='post' novalidate>";
-            echo "Member ID: <input type='text' name='member_id' ><br>";
-            echo "First Name: <input type='text' name='first_name' ><br>";
-            echo "Last Name: <input type='text' name='last_name' ><br>";
-            echo "Street: <input type='text' name='street' ><br>";
-            echo "Suburb: <input type='text' name='suburb' ><br>";
-            echo "State: <input type='text' name='state' ><br>";
-            echo "Postcode: <input type='text' name='postcode' ><br>";  
-            echo "Email: <input type='text' name='email' ><br>";  
-            echo "Contact Number: <input type='text' name='number' ><br>";       
-            echo "<input type='submit' name='add' value='Add Member'>";           
-        }
- 
-        
-        
+                echo "Member ID: <input type='text' name='member_id' ><br>";
+                echo "First Name: <input type='text' name='first_name' ><br>";
+                echo "Last Name: <input type='text' name='last_name' ><br>";
 
-        
+                echo "Street: <input type='text' name='street' ><br>";
+                echo "Suburb: <input type='text' name='suburb' ><br>";
+                echo "State: <input type='text' name='state' ><br>";
+                echo "Postcode: <input type='text' name='postcode' ><br>";  
+
+                echo "Email: <input type='text' name='email' ><br>";  
+                echo "Contact Number: <input type='text' name='number' ><br>";       
+                
+                echo "<input type='submit' name='add' value='Add Member'>";           
+            }
+    
         ?>
-
     </section>
 
 </body>

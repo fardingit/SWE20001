@@ -63,12 +63,14 @@ if (isset($_POST['update'])) {
             $edited_price = trim($_POST["edited_price"]);
             $edited_itemname = trim($_POST["edited_itemname"]);
             $edited_stock = trim($_POST["edited_stock"]);
+            $edited_stock_min = trim($_POST["edited_stock_min"]);
 
             // Construct an SQL UPDATE query
             $update_query = "UPDATE $sql_table SET 
                      price = '$edited_price', 
                      item_name = '$edited_itemname',
-                     stock = '$edited_stock'
+                     stock = '$edited_stock',
+                     stock_min = '$edited_stock_min'
                      WHERE grocery_id = '$edited_groceryid'";
             break;
         case 'member':

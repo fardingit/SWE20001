@@ -232,14 +232,23 @@ function display_all($table)
             throw new \Exception("Invalid table name: $table", 1);
             break;
     }
-
-    
     $result = mysqli_query($db, $query);
     $db->close();
 
     return $result;
 }
 
+function get_low_stock()
+{
+    $db = create_connection();
+
+    $query = "SELECT * FROM grocery WHERE stock < stock_min";
+
+    $result = mysqli_query($db, $query);
+    $db->close();
+
+    return $result;
+}
 
 function format_table($query_result)
 {

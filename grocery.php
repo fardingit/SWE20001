@@ -24,6 +24,17 @@
 
 
     <section id="grocery">
+        <?php
+        //low stock alert
+        require_once('GotoGro.php');
+        $low_stock = GotoGro\get_low_stock();
+        if ($low_stock->num_rows > 0)
+        {
+            echo "<p><strong>ALERT:</strong> the following stock(s) are below set minimums:";
+            echo GotoGro\format_table($low_stock);
+        }
+        ?>
+
         <h1>Grocery Table</h1>
         <p>In order to manage the table:<br> First enter the needed value and press the required button.
             To search for result, enter value and press search. <br>To delete (deletes by refnum only)
@@ -35,7 +46,6 @@
         <form method="post">
 
             <p class="val"> <input type="text" name="val" id="val" />
-                <input type="submit" name="add_grocery" value="Add" />
                 <input type="submit" name="search" value="Search" />
                 <input type="submit" name="delete" value="Delete">
                 <input type="submit" name="edit" value="Edit">

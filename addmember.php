@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+<!-- REDUNDANT/NEEDS REFACTORING -->
+<!-- <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -42,4 +43,4 @@
 
     
 </body>
-</html>
+</html> -->

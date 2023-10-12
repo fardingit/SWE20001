@@ -33,7 +33,7 @@
         <form method="post">
 
             <p class="val"> <input type="text" name="val" id="val" />
-                <input type="submit" name="add" value="Add" />
+                <input type="submit" name="add_member" value="Add" />
                 <input type="submit" name="search" value="Search" />
                 <input type="submit" name="delete" value="Delete">
                 <input type="submit" name="edit" value="Edit">
@@ -42,10 +42,35 @@
             
         </form>
 
+
+
+
+    </form>
+
         <?php
+
 
         $sql_table = "member";
         include 'get_result.php';
+        if (isset($_POST['add_member'])){//cleaner look, form shows up only when add button is pressed, other functionality refactored into getresult and gotogro.php
+            echo "<h2>Add new member</h2>";
+            echo "<form id='addMemberForm' method='post' novalidate>";
+            echo "Member ID: <input type='text' name='member_id' ><br>";
+            echo "First Name: <input type='text' name='first_name' ><br>";
+            echo "Last Name: <input type='text' name='last_name' ><br>";
+            echo "Street: <input type='text' name='street' ><br>";
+            echo "Suburb: <input type='text' name='suburb' ><br>";
+            echo "State: <input type='text' name='state' ><br>";
+            echo "Postcode: <input type='text' name='postcode' ><br>";  
+            echo "Email: <input type='text' name='email' ><br>";  
+            echo "Contact Number: <input type='text' name='number' ><br>";       
+            echo "<input type='submit' name='add' value='Add Member'>";           
+        }
+ 
+        
+        
+
+        
         ?>
 
     </section>

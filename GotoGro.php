@@ -33,7 +33,18 @@ function add($table)
             $query = "";
             break;
         case 'member':
-            $query = "";
+            $memberID = mysqli_real_escape_string($db, $_POST['member_id']);
+            $firstName = mysqli_real_escape_string($db, $_POST['first_name']);
+            $lastName = mysqli_real_escape_string($db, $_POST['last_name']);
+            $street = mysqli_real_escape_string($db, $_POST['street']);
+            $suburb = mysqli_real_escape_string($db, $_POST['suburb']);
+            $state = mysqli_real_escape_string($db, $_POST['state']);
+            $postcode = mysqli_real_escape_string($db, $_POST['postcode']);
+            $email = mysqli_real_escape_string($db, $_POST['email']);
+            $contactNumber = mysqli_real_escape_string($db, $_POST['number']);
+            $query = "INSERT INTO member (memberID, first_name, last_name, street, suburb, state, postcode, email, number) 
+                  VALUES ('$memberID', '$firstName', '$lastName', '$street', '$suburb', '$state', '$postcode', '$email', '$contactNumber')";
+
             break;
         default:
             throw new \Exception("Invalid table name: $table", 1);

@@ -14,8 +14,8 @@
 </head>
 
 <body>
-     <!-- changed the nav bar style -->
-     <div id="navbar">
+    <!-- changed the nav bar style -->
+    <div id="navbar">
         <a id="index_heading" href="index.html">Home</a>
         <a id="members_heading" href="members.php">Members</a>
         <a id="grocery_heading" href="grocery.php">Grocery</a>
@@ -24,6 +24,17 @@
 
 
     <section id="grocery">
+        <?php
+        //low stock alert
+        require_once('GotoGro.php');
+        $low_stock = GotoGro\get_low_stock();
+        if ($low_stock->num_rows > 0)
+        {
+            echo "<p><strong>ALERT:</strong> the following stock(s) are below set minimums:";
+            echo GotoGro\format_table($low_stock);
+        }
+        ?>
+
         <h1>Grocery Table</h1>
         <p>In order to manage the table:<br> First enter the needed value and press the required button.
             To search for result, enter value and press search. <br>To delete (deletes by refnum only)
@@ -48,18 +59,18 @@
             <p class="val">
                 Add Grocery<br>
                 <label for="name_input">Name:</label>
-                <input type="text" name="name" id="name_input" pattern="[A-Za-z]{2,20}" required/>
-                <div class="feedback" id="name_feedback"></div>
+                <input type="text" name="name" id="name_input" pattern="[A-Za-z]{2,20}" required />
+            <div class="feedback" id="name_feedback"></div>
 
-                <label for="price_input">Price: $</label>
-                <input type="number" name="price" size="8" id="price_input" pattern="[0-9]{1,4}" required/>
-                <div class="feedback" id="price_feedback"></div>
+            <label for="price_input">Price: $</label>
+            <input type="number" name="price" size="8" id="price_input" pattern="[0-9]{1,4}" required />
+            <div class="feedback" id="price_feedback"></div>
 
-                <label for="stock_input">Stock:</label>
-                <input type="number" name="stock" size="8" pattern="[0-9]{1,5}" id="stock_input"/>
-                <div class="feedback" id="stock_feedback"></div>
+            <label for="stock_input">Stock:</label>
+            <input type="number" name="stock" size="8" pattern="[0-9]{1,5}" id="stock_input" />
+            <div class="feedback" id="stock_feedback"></div>
 
-                <input type="submit" name="add" value="Add">
+            <input type="submit" name="add" value="Add">
             </p>
 
         </form>

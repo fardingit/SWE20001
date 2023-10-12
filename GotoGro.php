@@ -7,7 +7,7 @@ use mysqli;
 //connects to databse with details form settings file
 function create_connection()
 {
-    require_once("settings.php");
+    require("settings.php");
     $conn = @mysqli_connect(
         $host,
         $user,
@@ -146,6 +146,7 @@ function edit($table, $input)
                     echo "Price: <input type='text' name='edited_price' value='{$row['price']}'><br>";
                     echo "Item name: <input type='text' name='edited_itemname' value='{$row['item_name']}'><br>";
                     echo "Stock: <input type='text' name='edited_stock' value='{$row['stock']}'><br>";
+                    echo "Stock minimum: <input type='text' name='edited_stock_min' value='{$row['stock_min']}'><br>";
 
                     echo "<input type='submit' name='update' value='Update'>";
                     echo "</form>";
@@ -174,13 +175,13 @@ function edit($table, $input)
                     //     // Display a form with the grocery item's current information for editing
                     //     echo "<h2>Edit Item</h2>";
                     //     echo "<form method='post'>";
-    
+
                     //     echo "Grocery ID: {$row['grocery_id']}<br>";
                     //     echo "<input type='hidden' name='edited_groceryid' value='{$row['grocery_id']}' >";
                     //     echo "Price: <input type='text' name='edited_price' value='{$row['price']}'><br>";
                     //     echo "Item name: <input type='text' name='edited_itemname' value='{$row['item_name']}'><br>";
                     //     echo "Stock: <input type='text' name='edited_stock' value='{$row['stock']}'><br>";
-    
+
                     //     echo "<input type='submit' name='update' value='Update'>";
                     //     echo "</form>";
                     //     break;
@@ -228,6 +229,17 @@ function display_all($table)
             throw new \Exception("Invalid table name: $table", 1);
             break;
     }
+    $result = mysqli_query($db, $query);
+    $db->close();
+
+    return $result;
+}
+
+function get_low_stock()
+{
+    $db = create_connection();
+
+    $query = "SELECT * FROM grocery WHERE stock < stock_min";
 
     $result = mysqli_query($db, $query);
     $db->close();

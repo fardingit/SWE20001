@@ -1,4 +1,3 @@
-<!-- Basic login page, not styled -->
 <!DOCTYPE html>
 <html>
 

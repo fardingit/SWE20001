@@ -27,14 +27,24 @@ function add($table)
     global $query;
     switch ($table) {
         case 'grocery':
-            $query = "INSERT INTO grocery (item_name, price, stock) VALUES ('{$_POST['name']}', '{$_POST['price']}', '{$_POST['stock']}' )";
+            $name_input = mysqli_real_escape_string($db, $_POST['name_input']);
+            $price = mysqli_real_escape_string($db, $_POST['price_input']);
+            $stock = mysqli_real_escape_string($db, $_POST['stock_input']);
+
+            $query = "INSERT INTO grocery (item_name, price, stock) 
+                VALUES ('$name_input', '$price', '$stock')";
             break;
         case 'sales':
-            $query = "INSERT INTO sales (item_name, date, amount) VALUES ('{$_POST['$item_name']}', '{$_POST['$date']}', '{$_POST['$amount']}' )";
+            $item_name = mysqli_real_escape_string($db, $_POST['item_name']);
+            $date = mysqli_real_escape_string($db, $_POST['date']);
+            $amount = mysqli_real_escape_string($db, $_POST['amount_input']);
+
+            $query = "INSERT INTO sales (item_name, date, amount) 
+                VALUES ('$item_name', '$date', '$amount')";
             break;
         case 'member':
             $memberID = mysqli_real_escape_string($db, $_POST['member_id']);
-            $firstName = mysqli_real_escape_string($db, $_POST['first_name']);
+            $first_name = mysqli_real_escape_string($db, $_POST['first_name']);
             $lastName = mysqli_real_escape_string($db, $_POST['last_name']);
             $street = mysqli_real_escape_string($db, $_POST['street']);
             $suburb = mysqli_real_escape_string($db, $_POST['suburb']);
@@ -43,7 +53,7 @@ function add($table)
             $email = mysqli_real_escape_string($db, $_POST['email']);
             $contactNumber = mysqli_real_escape_string($db, $_POST['number']);
             $query = "INSERT INTO member (memberID, first_name, last_name, street, suburb, state, postcode, email, number) 
-                  VALUES ('$memberID', '$firstName', '$lastName', '$street', '$suburb', '$state', '$postcode', '$email', '$contactNumber')";
+                  VALUES ('$memberID', '$first_name', '$lastName', '$street', '$suburb', '$state', '$postcode', '$email', '$contactNumber')";
 
             break;
         default:
@@ -94,7 +104,7 @@ function delete($table, $input)
             $query = "DELETE FROM sales WHERE sale_id='$input'";
             break;
         case 'member':
-            $query = "DELETE FROM member WHERE member_id='$input'";
+            $query = "DELETE FROM member WHERE memberID='$input'";
             break;
         default:
             throw new \Exception("Invalid table name: $table", 1);
@@ -175,15 +185,15 @@ function edit($table, $input)
                     break;
 
                     case 'sales':
-                        // Display a form with the grocery item's current information for editing
+                        // NO SALES EDITING NEEDED (CODE UNUSED)
                          echo "<h2>Edit Item</h2>";
                          echo "<form method='post'>";
     
                          echo "Sales ID: {$row['sale_id']}<br>";
                          echo "<input type='hidden' name='edited_sale_id' value='{$row['sale_id']}' >";
-                         echo "Item Name: <input type='text' name='edited_salesitemname' value='{$row['salesitemname']}'><br>";
+                         echo "Item Name: <input type='text' name='edited_salesitemname' value='{$row['item_name']}'><br>";
                          echo "Date: <input type='text' name='edited_date' value='{$row['date']}'><br>";
-                         echo "Amount: <input type='text' name='edited_amount' value='{$row['amount_input']}'><br>";
+                         echo "Amount: <input type='text' name='edited_amount' value='{$row['amount']}'><br>";
     
                          echo "<input type='submit' name='update' value='Update'>";
                          echo "</form>";

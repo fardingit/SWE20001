@@ -3,7 +3,7 @@
 function validate(){
 
 const item_name = document.getElementById("item_name").value;
-const date_input = document.getElementById("date_input").value;
+const date_input = document.getElementById("date").value;
 const amount_input = document.getElementById("amount_input").value;
 
 const item_name_feedback = document.getElementById("item_name_feedback");
@@ -16,7 +16,7 @@ var result = true;
     /*-------- Sales validation--------*/
 if(validations === true) {
     //Item validation
-    if(item_name == null) {
+    if(item_name == "") {
         item_name_feedback.innerHTML = "Enter the item name!";
         result = false;
     }
@@ -76,7 +76,7 @@ function prefill(){
     if(sessionStorage.item_name != undefined){
     
     document.getElementById("item_name").value = sessionStorage.item_name;
-    document.getElementById("date_input").value = sessionStorage.date_input;
+    document.getElementById("date").value = sessionStorage.date_input;
     document.getElementById("amount_input").value = sessionStorage.amount_input;
     }
 }

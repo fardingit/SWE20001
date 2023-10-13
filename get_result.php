@@ -32,7 +32,7 @@ else if (isset($_POST['display_all'])) {
 else if (isset($_POST['add'])) {
     $result = GG\add($sql_table);
     if ($result) {
-        echo "{$_POST['name']} successfully added!";
+        echo "successfully added!";
     } else $err_flag = true;
 }
 

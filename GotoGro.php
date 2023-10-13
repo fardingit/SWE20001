@@ -249,6 +249,115 @@ function get_low_stock()
 
     return $result;
 }
+function calculateTotalPrice($start_date, $end_date)
+{
+    $db = create_connection();
+    $sql = "SELECT SUM(price) AS total_price FROM sales WHERE date >= '$start_date' AND date <= '$end_date'";
+
+    $result = mysqli_query($db, $sql);
+
+    if ($result) {
+        $row = mysqli_fetch_assoc($result);
+        return $row['total_price'];
+    }
+
+    return 0;
+}
+function generateSalesCsvReport()
+{
+    require_once("settings.php");
+
+    // Enable error reporting for debugging
+    error_reporting(E_ALL);
+
+    $conn = @mysqli_connect($host, $user, $pwd, $sql_db);
+
+    if (!$conn) {
+        echo "<p>Database connection failure</p>";
+        return;
+    }
+
+    $query = "SELECT sale_id, item_name, date, amount, price FROM sales";
+    $result = mysqli_query($conn, $query);
+
+    if (!$result) {
+        echo "<p>Database query error: " . mysqli_error($conn) . "</p>";
+        return;
+    }
+    $file = fopen('sales_data.csv', 'w');
+
+    // Write the CSV header
+    fputcsv($file, array('Sale ID', 'Item Name', 'Date', 'Amount', 'Price'));
+
+    // Write the data rows
+    while ($row = mysqli_fetch_assoc($result)) {
+        fputcsv($file, $row);
+    }
+
+    fclose($file);
+
+
+
+    mysqli_close($conn);
+}
+function generateGroceryCsvReport()
+{
+  
+    $conn=create_connection();
+
+    $query = "SELECT grocery_id, price, item_name, stock, stock_min FROM grocery";
+    $result = mysqli_query($conn, $query);
+
+    if (!$result) {
+        echo "<p>Database query error: " . mysqli_error($conn) . "</p>";
+        return;
+    }
+    $file = fopen('grocery_data.csv', 'w');
+
+    // Write the CSV header
+    fputcsv($file, array('Item ID', 'Price', 'Item Name', 'Stock', 'Stock mininmum'));
+
+    // Write the data rows
+    while ($row = mysqli_fetch_assoc($result)) {
+        fputcsv($file, $row);
+    }
+
+    fclose($file);
+
+
+
+    mysqli_close($conn);
+}
+function generateMemberCsvReport()
+{
+  
+    $conn=create_connection();
+
+    $query = "SELECT memberID, first_name, last_name, street, suburb, state, postcode, email, number FROM member";
+    $result = mysqli_query($conn, $query);
+
+    if (!$result) {
+        echo "<p>Database query error: " . mysqli_error($conn) . "</p>";
+        return;
+    }
+    $file = fopen('member_data.csv', 'w');
+
+    // Write the CSV header
+    fputcsv($file, array('Member ID', 'First Name', 'Last Name', 'Street', 'Suburb ', 'State ','PostCode', 'Email ', 'Number '));
+
+    // Write the data rows
+    while ($row = mysqli_fetch_assoc($result)) {
+        fputcsv($file, $row);
+    }
+
+    fclose($file);
+
+
+
+    mysqli_close($conn);
+}
+
+
 
 function format_table($query_result)
 {
@@ -270,3 +379,4 @@ function format_table($query_result)
     $html .= "</table>\n ";
     return $html;
 }
+

@@ -1,6 +1,6 @@
+
 <?php
 require_once('GotoGro.php');
-error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
 
 use GotoGro as GG;
 
@@ -102,6 +102,7 @@ if (isset($_POST['update'])) {
                  $edited_salesitemname = trim($_POST["edited_salesitemname"]);
                  $edited_date = trim($_POST["edited_date"]);
                  $edited_amount = trim($_POST["edited_amount"]);
+
     
                  // Construct an SQL UPDATE query
                  $update_query = "UPDATE $sql_table SET 
@@ -124,7 +125,82 @@ if (isset($_POST['update'])) {
     }
     return $update_result;
 }
+if (isset($_POST['calculate_total'])) 
+{
+    echo "<h2>Enter dates</h2>";
+    echo "<form id='dateinput' method='post' novalidate>";
+    echo "<label for='date'>Starting: </label><input type='date' name='start_date' size='8' id='start_date' required/>";
+    echo "<div class='feedback' id='start_date_feedback'></div>";
+    echo "<label for='date'>Ending: </label><input type='date' name='end_date' size='8' id='end_date' required/>";
+    echo "<div class='feedback' id='end_date_feedback'></div>";
+    echo "<input type='submit' name='calculate_sales' value='Calculate sales'>"; 
+    
+}
+if (isset($_POST['calculate_sales'])) 
+    {
+    $start_date = $_POST['start_date'];
+    $end_date = $_POST['end_date'];
+    $total_price = GG\calculateTotalPrice($start_date, $end_date);
+    if ($total_price > 0) {
+        echo "Total sales between $start_date and $end_date: $$total_price";
+    } else {
+        echo "No sales data found for the selected date range.";
+    }
+    }
+if (isset($_POST['generate_csv'])) 
+{
+    switch ($sql_table) {
+        case 'grocery':
+            GG\generateGroceryCsvReport();
+            echo '<script>';
+            echo 'function downloadFile() {';
+            echo '  var downloadLink = document.createElement("a");';
+            echo '  downloadLink.href = "grocery_data.csv";'; // Set the CSV file path
+            echo '  downloadLink.download = "grocery.csv";'; // Set the desired file name
+            echo '  downloadLink.style.display = "none";';
+            echo '  document.body.appendChild(downloadLink);';
+            echo '  downloadLink.click();';
+            echo '  document.body.removeChild(downloadLink);';
+            echo '}';
+            echo 'downloadFile();';
+            echo '</script>';
+            break;
+        case 'sales':
+            GG\generateSalesCsvReport();
+            echo '<script>';
+            echo 'var downloadLink = document.createElement("a");';
+            echo 'downloadLink.href = "sales_data.csv";'; // Set the CSV file path
+            echo 'downloadLink.download = "sales.csv";'; // Set the desired file name
+            echo 'downloadLink.style.display = "none";';
+            echo 'document.body.appendChild(downloadLink);';
+            echo 'downloadLink.click();';
+            echo 'document.body.removeChild(downloadLink);';
+            echo '</script>';
+            break;
+        case 'member':
+            GG\generateMemberCsvReport(); 
+            echo '<script>';
+            echo 'function downloadFileMembers() {';
+            echo '  var downloadLink = document.createElement("a");';
+            echo '  downloadLink.href = "member_data.csv";'; // Set the CSV file path
+            echo '  downloadLink.download = "members.csv";'; // Set the desired file name
+            echo '  downloadLink.style.display = "none";';
+            echo '  document.body.appendChild(downloadLink);';
+            echo '  downloadLink.click();';
+            echo '  document.body.removeChild(downloadLink);';
+            echo '}';
+            echo 'downloadFileMembers();';
+            echo '</script>';
+            break;
+
+
+
+
+        }
+}   
 
 if (isset($err_flag)) {
     echo "<p>Something is wrong with:", $query, "</p>";
 }
+
+

@@ -39,6 +39,8 @@
                 <input type="submit" name="delete" value="Delete">
                 <input type="submit" name="edit" value="Edit">
                 <input type="submit" name="display_all" value="Display whole table">
+                <input type="submit" name="generate_csv" value="Download report">        
+
             </p>
             
         </form>

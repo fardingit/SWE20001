@@ -20,6 +20,9 @@
         <a id="members_heading" href="members.php">Members</a>
         <a id="grocery_heading" href="grocery.php">Grocery</a>
         <a id="sales_heading" href="sales.php">Sales</a>
+        <a id="downloadLink" style="display: none;" href="sales_data.csv" download="sales_data.csv">Download File</a>
+
+
     </div>
 
 
@@ -50,11 +53,12 @@
                 <input type="submit" name="delete" value="Delete">
                 <input type="submit" name="edit" value="Edit">
                 <input type="submit" name="display_all" value="Display whole table">
+                <input type="submit" name="generate_csv" value="Download report">        
             </p>
 
         </form>
 
-        
+
         <?php
             $sql_table = "grocery";
             include 'get_result.php';

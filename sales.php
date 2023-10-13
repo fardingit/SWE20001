@@ -1,4 +1,6 @@
+
 <!DOCTYPE html>
+
 <html lang="en">
     <head>
         <meta charset="utf-8"/>
@@ -19,6 +21,8 @@
         <a id="members_heading" href="members.php">Members</a>
         <a id="grocery_heading" href="grocery.php">Grocery</a>
         <a id="sales_heading" href="sales.php">Sales</a>
+        <a id="downloadLink" style="display: none;" href="sales_data.csv" download="sales_data.csv">Download File</a>
+        
      </div>
         
 
@@ -31,7 +35,6 @@
                 then select the desired status, then click on Change status. Thank you! 
             </p>
 
-        
         <form method="post" >
         
             <p class="val">	<input type="text" name="val" id="val" />
@@ -41,12 +44,18 @@
                 <input type="submit" name="delete" value="Delete">
                 <input type="submit" name="edit" value="Edit">
                 <input type="submit" name="display_all" value="Display whole table">
+                <input type="submit" name="calculate_total" value="Calculate total sales">
+                <input type="submit" name="generate_csv" value="Download report">
             </p>
 
         </form>
 
         <?php
+
+        
             $sql_table = "sales";
+            use GotoGro as GG;
+
             include 'get_result.php';
             if (isset($_POST['add_sales'])){
                 echo "<h2>Add Sales item</h2>";
@@ -55,15 +64,16 @@
                 echo "<label for='item_name'>Name:</label><input type='text' name='name' id='item_name' required/>";
                 echo "<div class='feedback' id='item_name_feedback'></div>";
                     
-                echo "<label for='date'>Date: $</label><input type='number' name='date' size='8' id='date' required/>";
+                echo "<label for='date'>Date: $</label><input type='date' name='date' size='8' id='date' required/>";
                 echo "<div class='feedback' id='date_feedback'></div>";
                     
                 echo "<label for='amount_input'>Amount:</label><input type='number' name='amount' size='8' id='amount_input'/>";
                 echo "<div class='feedback' id='amount_feedback'></div>";
 
                 echo "<input type='submit' name='add' value='Add Item'>";
-                    
+               
             }
+
         ?>
 
 </section>

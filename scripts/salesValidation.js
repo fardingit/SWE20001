@@ -1,68 +1,41 @@
 'use strict';
 
-function validate(){
+function validate() {
+    var itemName = document.getElementById("item_name").value;
+    var date = document.getElementById("date").value;
+    var amount = document.getElementById("amount_input").value;
 
-const item_name = document.getElementById("item_name").value;
-const date_input = document.getElementById("date").value;
-const amount_input = document.getElementById("amount_input").value;
+    var errorMessages = [];
 
-const item_name_feedback = document.getElementById("item_name_feedback");
-const date_input_feedback = document.getElementById("date_input_feedback");
-const amount_feedback = document.getElementById("amount_feedback");
-
-let validations = false;
-var result = true;
-
-    /*-------- Sales validation--------*/
-if(validations === true) {
-    //Item validation
-    if(item_name == "") {
-        item_name_feedback.innerHTML = "Enter the item name!";
-        result = false;
+    // Item Name validation
+    if (!itemName) {
+        errorMessages.push("Enter the item name!");
+    } else if (itemName.length < 2 || itemName.length > 50) {
+        errorMessages.push("Item name should be between 2 and 50 characters.");
     }
 
-    if (!item_name.match(/^[a-zA-z]{0,20}$/)) {
-        item_name_feedback.innerHTML = "Name should conatin 2-20 alphabetical letters";
-        result = false;
-    }
-    else {
-        item_name_feedback.innerHTML = "";
+    // Date validation
+    if (!date) {
+        errorMessages.push("Enter a valid date!");
     }
 
-    //Date validation
-    if(date_input == ""){
-        date_input_feedback.innerHTML = "Enter Date!";
-        result = false;
-    }
-    else if(!date_input.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/)) {
-        date_input_feedback.innerHTML = "Date needs to be following format: dd/mm/yyyy!";
-        result = false;
-    }
-    else {
-        date_input_feedback.innerHTML = "";
+    // Amount validation
+    if (amount === "" || isNaN(parseFloat(amount))) {
+        errorMessages.push("Enter a valid amount.");
     }
 
-    //Amount validation
-    if(amount_input == ""){
-        amount_feedback.innerHTML = "Enter sales amount!";
-        result = false;
-    }
-    else if(!amount_input.match(/^[0-9]{1,4}$/)) {
-        amount_feedback.innerHTML = "Sales amount should conatin 1-4 numbers";
-        result = false;
-    }
-    else {
-        amount_feedback.innerHTML = "";
-    }
+    var errorList = document.getElementById("errorMessages");
+    errorList.innerHTML = ""; // Clear any previous error messages
 
-}
-
-else { 
-    if (result) {
-        storage(item_name, date_input, amount_input);
+    if (errorMessages.length > 0) {
+        errorList.innerHTML = "<ul>";
+        errorMessages.forEach(function (message) {
+            errorList.innerHTML += "<li>" + message + "</li>";
+        });
+        errorList.innerHTML += "</ul>";
+        return false;
     }
-    return result;
-}
+    return true;
 }
 
 function storage(item_name, date_input, amount_input){
@@ -82,12 +55,15 @@ function prefill(){
 }
 
 function init(){
-    var sales_form = document.getElementById("sales_form");
-    sales_form.addEventListener("submit", function(submitting) {
-        if(!validate()) {
-            submitting.preventDefault();  
-        } else {
-            prefill();
+    document.addEventListener("submit", function (event) {
+        if (event.target && event.target.id === "sales_form") {
+            var errorList = document.getElementById("errorMessages");
+            errorList.innerHTML = ""; // Clear any previous error messages
+            if (!validate()) {
+                event.preventDefault();
+            } else {
+                prefill();
+            }
         }
     });
 }

@@ -1,103 +1,65 @@
 'use strict';
 
-function validate(){
+function validate() {
+    var firstName = document.getElementById("first_name").value;
+    var lastName = document.getElementById("last_name").value;
+    var contact = document.getElementById("number").value;
+    var email = document.getElementById("email").value;
+    var address = document.getElementById("street").value;
 
-const firstName = document.getElementById("firstName").value;
-const lastName = document.getElementById("lastName").value;
-const contact = document.getElementById("contact").value;
-const email = document.getElementById("email").value;
-const address = document.getElementById("address").value;
+    var errorMessages = []; // Array to store error messages
 
-const firstName_feedback = document.getElementById("firstName_feedback");
-const lastName_feedback = document.getElementById("lastName_feedback");
-const contact_feedback = document.getElementById("contact_feedback");
-const email_feedback = document.getElementById("email_feedback");
-const address_feedback = document.getElementById("address_feedback");
-
-
-let validations = false;
-var result = true;
-
-    /*-------- grocery validation--------*/
-if(validations === true) {
-    //FirstName validation
-    if(firstName == null) {
-        firstName_feedback.innerHTML = "Enter the product name!";
-        result = false;
+    // FirstName validation
+    if (!firstName) {
+        errorMessages.push("Enter the first name!");
+    } else if (!firstName.match(/^[A-Za-z]{2,20}$/)) {
+        errorMessages.push("Name should contain 2-20 alphabetical letters");
     }
 
-    if (!firstName.match(/^[A-Za-z]{2,20}$/)) {
-        firstName_feedback.innerHTML = "Name should conatin 2-20 alphabetical letters";
-        result = false;
-    }
-    else {
-        firstName_feedback.innerHTML = "";
-    }
-
-    //Lastname validation
-    if(lastName == ""){
-        lastName_feedback.innerHTML = "Enter product price!";
-        result = false;
-    }
-    else if(!lastName.match(/^[A-Za-z]{2,20}$/)) {
-        lastName_feedback.innerHTML = "Name should conatin 2-20 alphabetical letters";
-        result = false;
-    }
-    else {
-        lastName_feedback.innerHTML = "";
+    // Last name validation
+    if (!lastName) {
+        errorMessages.push("Enter the last name!");
+    } else if (!lastName.match(/^[A-Za-z]{2,20}$/)) {
+        errorMessages.push("Name should contain 2-20 alphabetical letters");
     }
 
-    //Contact validation
-    if(contact == ""){
-        contact_feedback.innerHTML = "Enter ocntact!";
-        result = false;
-    }
-    else if(!contact.match(/^(?:\04\)?[1-9]\d\d\)?\d{3}\d{3})$/)) {
-        contact_feedback.innerHTML = "Format: (04xx) xxx xxx";
-        result = false;
-    }
-    else {
-        contact_feedback.innerHTML = "";
+    // Contact validation
+    if (!contact) {
+        errorMessages.push("Enter contact!");
+    } else if (!contact.match(/^\(04\d{2}\)\s\d{3}\s\d{3}$/)) {
+        errorMessages.push("Format: (04xx) xxx xxx");
     }
 
-    //Email validation
-    if(email == ""){
-        email_feedback.innerHTML = "Enter your email!";
-        result = false;
-    }
-    else if(!email.match(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/)) {
-        email_feedback.innerHTML =  "Enter a valid email\n";
-        result = false;
-    }
-    else {
-        email_feedback.innerHTML = "";
+    // Email validation
+    if (!email) {
+        errorMessages.push("Enter your email!");
+    } else if (!email.match(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/)) {
+        errorMessages.push("Enter a valid email");
     }
 
-    //Address validation
-    if(address == "") {
-        address_feedback.innerHTML =  "Enter your address! ";
-        result = false;
-    }
-    else if(!address.match(/^[A-Za-z]{5,40}$/)) {
-        address_feedback.innerHTML =  "The addess needs to be between 5 to 40 characters. ";
-        result = false;
-    }
-    else {
-        address_feedback.innerHTML = "";
+    // Address validation
+    if (!address) {
+        errorMessages.push("Enter your address!");
+    } else if (!address.match(/^[A-Za-z0-9\s\-,']{5,40}$/)) {
+        errorMessages.push("The address needs to be between 5 to 40 characters.");
     }
 
+    if (errorMessages.length > 0) {
+        // Display error messages on the screen
+        var errorList = document.getElementById("errorMessages");
+        errorList.innerHTML = "<ul>";
+        errorMessages.forEach(function (message) {
+            errorList.innerHTML += "<li>" + message + "</li>";
+        });
+        errorList.innerHTML += "</ul>";
+        return false;
+    }
+
+    // No errors, return true to allow form submission
+    return true;
 }
 
-else { 
-    if (result) {
-        storage(firstName, lastName, contact, email, address);
-    }
-    return result;
-}
-}
-
-function storage(firstName, lastName, contact, email, address){
-
+function storage(firstName, lastName, contact, email, address) {
     sessionStorage.firstName = firstName;
     sessionStorage.lastName = lastName;
     sessionStorage.contact = contact;
@@ -105,26 +67,29 @@ function storage(firstName, lastName, contact, email, address){
     sessionStorage.address = address;
 }
 
-function prefill(){
-    if(sessionStorage.firstName != undefined){
-    
-    document.getElementById("firstName").value = sessionStorage.firstName;
-    document.getElementById("lastName").value = sessionStorage.lastName;
-    document.getElementById("contact").value = sessionStorage.contact;
-    document.getElementById("email").value = sessionStorage.email;
-    document.getElementById("address").value = sessionStorage.address;
+function prefill() {
+    if (sessionStorage.firstName) {
+        document.getElementById("first_name").value = sessionStorage.firstName;
+        document.getElementById("last_name").value = sessionStorage.lastName;
+        document.getElementById("number").value = sessionStorage.contact;
+        document.getElementById("email").value = sessionStorage.email;
+        document.getElementById("street").value = sessionStorage.address;
     }
 }
 
-function init(){
-    var addMemberForm = document.getElementById("addMemberForm");
-    addMemberForm.addEventListener("submit", function(submitting) {
-        if(!validate()) {
-            submitting.preventDefault();  
-        } else {
-            prefill();
+function init() {
+    document.addEventListener("submit", function (event) {
+        if (event.target && event.target.id === "addMemberForm") {
+            var errorList = document.getElementById("errorMessages");
+            errorList.innerHTML = ""; // Clear any previous error messages
+            if (!validate()) {
+                event.preventDefault();
+            } else {
+                prefill();
+            }
         }
     });
+
 }
 
 window.onload = init;

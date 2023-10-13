@@ -9,13 +9,13 @@
         <meta name="author" content="YM"/>
         <link href="styles/style.css" rel="stylesheet"/>
         <script src="scripts/salesValidation.js"></script>
-        
         <title>Home page</title>
     </head>
 
     <body>  
     
       <!-- changed the nav bar style -->
+      <h2 id="options">Sales</h2>
       <div id="navbar">
         <a id="index_heading" href="index.php">Home</a>
         <a id="members_heading" href="members.php">Members</a>
@@ -24,9 +24,6 @@
         <a id="downloadLink" style="display: none;" href="sales_data.csv" download="sales_data.csv">Download File</a>
         
      </div>
-        
-
-
         <section id="sales">
             <h1>Sales Table</h1>
             <p>In order to manage the table:<br> First enter the needed value and press the required button. 
@@ -58,22 +55,19 @@
             if (isset($_POST['add_sales'])){
                 echo "<h2>Add Sales item</h2>";
                 echo "<form id='sales_form' method='post' >";
-                
-                echo "<label for='item_name'>Name:</label><input type='text' name='item_name' id='item_name' required/>";
+                echo "<label for='item_name'>Name:</label><input type='text' name='item_name' id='item_name' />";
                 echo "<div class='feedback' id='item_name_feedback'></div>";
-                    
-                echo "<label for='date'>Date: $</label><input type='date' name='date' size='8' id='date' required/>";
-                echo "<div class='feedback' id='date_feedback'></div>";
-                    
+                echo "<label for='date'>Date: $</label><input type='date' name='date' size='8' id='date' />";
+                echo "<div class='feedback' id='date_feedback'></div>";                    
                 echo "<label for='amount_input'>Amount:</label><input type='number' name='amount_input' size='8' id='amount_input'/>";
                 echo "<div class='feedback' id='amount_feedback'></div>";
-
                 echo "<input type='submit' name='add' value='Add Item'> </form>";
             }
 
         ?>
 
 </section>
+<div id="errorMessages"></div>
 
 </body>
 

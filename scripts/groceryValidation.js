@@ -1,68 +1,42 @@
 'use strict';
 
-function validate(){
+function validate() {
+    var name = document.getElementById("name_input").value;
+    var price = document.getElementById("price_input").value;
+    var stock = document.getElementById("stock_input").value;
 
-const name_input = document.getElementById("name_input").value;
-const price_input = document.getElementById("price_input").value;
-const stock_input = document.getElementById("stock_input").value;
+    var errorMessages = [];
 
-const name_feedback = document.getElementById("name_feedback");
-const price_feedback = document.getElementById("price_feedback");
-const stock_feedback = document.getElementById("stock_feedback");
-
-let validations = false;
-var result = true;
-
-    /*-------- grocery validation--------*/
-if(validations === true) {
-    //Name validation
-    if(name_input == null) {
-        name_feedback.innerHTML = "Enter the product name!";
-        result = false;
+    // Name validation
+    if (!name) {
+        errorMessages.push("Enter the item name!");
+    } else if (name.length < 2 || name.length > 50) {
+        errorMessages.push("Item name should be between 2 and 50 characters.");
     }
 
-    if (!name_input.match(/^[A-Za-z]{2,20}$/)) {
-        name_feedback.innerHTML = "Name should conatin 2-20 alphabetical letters";
-        result = false;
-    }
-    else {
-        name_feedback.innerHTML = "";
+    // Price validation
+    if (price === "" || isNaN(parseFloat(price))) {
+        errorMessages.push("Enter a valid price.");
     }
 
-    //Price validation
-    if(price_input == ""){
-        price_feedback.innerHTML = "Enter product price!";
-        result = false;
-    }
-    else if(!price_input.match(/^[0-9]{1,4}/)) {
-        price_feedback.innerHTML = "Price should be 1-4 numbers";
-        result = false;
-    }
-    else {
-        price_feedback.innerHTML = "";
+    // Stock validation
+    if (stock === "" || isNaN(parseInt(stock))) {
+        errorMessages.push("Enter a valid stock quantity.");
     }
 
-    //Stock validation
-    if(stock_input == ""){
-        stock_feedback.innerHTML = "Enter stock amount!";
-        result = false;
-    }
-    else if(!stock_input.match(/^[0-9]{1,5}/)) {
-        stock_feedback.innerHTML = "Stock should conatin 1-5 numbers";
-        result = false;
-    }
-    else {
-        stock_feedback.innerHTML = "";
+    var errorList = document.getElementById("errorMessages");
+    errorList.innerHTML = ""; // Clear any previous error messages
+
+    if (errorMessages.length > 0) {
+        errorList.innerHTML = "<ul>";
+        errorMessages.forEach(function (message) {
+            errorList.innerHTML += "<li>" + message + "</li>";
+        });
+        errorList.innerHTML += "</ul>";
+        return false;
     }
 
-}
-
-else { 
-    if (result) {
-        storage(name_input, price_input, stock_input);
-    }
-    return result;
-}
+    return true;
 }
 
 function storage(name_input, price_input, stock_input){
@@ -82,12 +56,15 @@ function prefill(){
 }
 
 function init(){
-    var grocery_form = document.getElementById("grocery_form");
-    grocery_form.addEventListener("submit", function(submitting) {
-        if(!validate()) {
-            submitting.preventDefault();  
-        } else {
-            prefill();
+    document.addEventListener("submit", function (event) {
+        if (event.target && event.target.id === "grocery_form") {
+            var errorList = document.getElementById("errorMessages");
+            errorList.innerHTML = ""; // Clear any previous error messages
+            if (!validate()) {
+                event.preventDefault();
+            } else {
+                prefill();
+            }
         }
     });
 }

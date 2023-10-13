@@ -15,14 +15,13 @@
 
 <body>
      <!-- changed the nav bar style -->
+     <h2 id="options">Grocery</h2>
      <div id="navbar">
         <a id="index_heading" href="index.php">Home</a>
         <a id="members_heading" href="members.php">Members</a>
         <a id="grocery_heading" href="grocery.php">Grocery</a>
         <a id="sales_heading" href="sales.php">Sales</a>
         <a id="downloadLink" style="display: none;" href="sales_data.csv" download="sales_data.csv">Download File</a>
-
-
     </div>
 
 
@@ -69,7 +68,6 @@
                 echo "<form id='grocery_form' method='post' novalidate>";
                 echo "<label for='name_input'>Name:</label><input type='text' name='name_input' id='name_input' required/>";
                 echo "<div class='feedback' id='name_feedback'></div>";
-                    
                 echo "<label for='price_input'>Price: $</label><input type='number' name='price_input' size='8' id='price_input' required/>";
                 echo "<div class='feedback' id='price_feedback'></div>";
                     
@@ -82,7 +80,7 @@
         ?>
 
     </section>
-
+<div id="errorMessages"></div>
 </body>
 
 </html>

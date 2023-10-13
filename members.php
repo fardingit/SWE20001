@@ -7,13 +7,13 @@
     <meta name="keywords" content="manage, ym studio" />
     <meta name="author" content="YM" />
     <link href="styles/style.css" rel="stylesheet" />
-    <script src="scripts/memberValidation.js"></script>
 
     <title>Home page</title>
 </head>
 
 <body>
      <!-- changed the nav bar style -->
+     <h2 id="options">Members</h2>
     <div id="navbar">
         <a id="index_heading" href="index.php">Home</a>
         <a id="members_heading" href="members.php">Members</a>
@@ -51,26 +51,27 @@
             include 'get_result.php';
             if (isset($_POST['add_member'])){//cleaner look, form shows up only when add button is pressed, other functionality refactored into getresult and gotogro.php
                 echo "<h2>Add new member</h2>";
-                echo "<form id='addMemberForm' method='post' novalidate>";
+                echo "<form id='addMemberForm' method='post' onsubmit='return validate();' novalidate>";
 
-                echo "Member ID: <input type='text' name='member_id' ><br>";
-                echo "First Name: <input type='text' name='first_name' ><br>";
-                echo "Last Name: <input type='text' name='last_name' ><br>";
+                echo "Member ID: <input id = 'member_id' type='text' name='member_id' ><br>";
+                echo "First Name: <input id = 'first_name' type='text' name='first_name' ><br>";
+                echo "Last Name: <input id = 'last_name' type='text' name='last_name' ><br>";
 
-                echo "Street: <input type='text' name='street' ><br>";
-                echo "Suburb: <input type='text' name='suburb' ><br>";
-                echo "State: <input type='text' name='state' ><br>";
-                echo "Postcode: <input type='text' name='postcode' ><br>";  
+                echo "Street: <input id = 'street' type='text' name='street' ><br>";
+                echo "Suburb: <input id = 'suburb' type='text' name='suburb' ><br>";
+                echo "State: <input id = 'state' type='text' name='state' ><br>";
+                echo "Postcode: <input id = 'postcode' type='text' name='postcode' ><br>";  
 
-                echo "Email: <input type='text' name='email' ><br>";  
-                echo "Contact Number: <input type='text' name='number' ><br>";       
+                echo "Email: <input id= 'email' type='text' name='email' ><br>";  
+                echo "Contact Number: <input id = 'number' type='text' name='number' ><br>";       
                 
                 echo "<input type='submit' name='add' value='Add Member'>";           
             }
     
         ?>
     </section>
-
+    <div id="errorMessages"></div>
+    <script src="scripts/memberValidation.js"></script>
 </body>
 
 </html>

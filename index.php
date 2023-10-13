@@ -10,35 +10,36 @@
 </head>
 
 <?php
-if (isset($_SERVER['HTTP_REFERER'])) {//makeshift authentication, checks if reference came from login page, only allows accces then
-    $referrer = $_SERVER['HTTP_REFERER'];
-    
-    if (strpos($referrer, 'login_index.php') !== false) {
-
-    } else {
-        echo "<a id='loginref' href='login_index.php'>Login</a>";
-        header('HTTP/1.0 403 Forbidden', true, 403);
-        die("<h2>Please Login</h2>");
-    }
-} else {
-    echo "<a id='loginref' href='login_index.php'>Login</a>";
+if (!isset($_SERVER['HTTP_REFERER']) || strpos($_SERVER['HTTP_REFERER'], 'login_index.php') === false) {
+?>
+    <body id="index_body">
+        <h1>Welcome to Goto Grocery Management System!</h1>
+        <h3>Staff access only</h3>
+        <a id='loginref' href='login_index.php'>
+            <span>Proceed to Login</span>
+            <i></i>
+        </a>
+    </body>
+</html>
+<?php
     header('HTTP/1.0 403 Forbidden', true, 403);
-    die("<h2> Please Login</h2>");
+    exit;
 }
 ?>
+
 <body id="index_body">
     <h1 id="options">Databases</h1>
 
     <a class="home_option" href="members.php" id="memberst">
-        <span>Members</span>
+        <span class="text">Members</span>
         <i></i>
     </a>
-    <a class "home_option" href="grocery.php" id="groceryt">
-        <span>Grocery</span>
+    <a class="home_option" href="grocery.php" id="groceryt">
+        <span class="text">Grocery</span>
         <i></i>
     </a>
     <a class="home_option" href="sales.php" id="salest">
-        <span>Sales</span>
+        <span class="text">Sales</span>
         <i></i>
     </a>
 

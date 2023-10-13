@@ -3,7 +3,9 @@
     padding: 0;
     box-sizing: border-box;
     font-family: "Times New Roman", Times, serif;
+
 }
+
 
 h1,h2,h3,p,li, th, dl, label {
     font-family:"Gill Sans", sans-serif;
@@ -16,7 +18,7 @@ h1,h2,h3,p,li, th, dl, label {
 }
 
 #navbar a {
-    color: white;
+    color: #000;
 }
 
 
@@ -25,7 +27,7 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: #27282c;
+    background-image: linear-gradient(to bottom right, black, grey);
     flex-direction: column;
     gap: 50px;
 }
@@ -75,10 +77,6 @@ a:before {
     color: #27282c;
 }
 
-a span {
-    position: relative;
-    z-index: 1;
-}
 
 a i {
     position: absolute;
@@ -131,47 +129,55 @@ footer {
     transform: translateX(-50%);
 }
 
-
-/* LOGIN STUFF*/
-
-.login{
-        width: 382px;
-        overflow: hidden;
-        margin: auto;
-        margin: 20 0 0 450px;
-        padding: 80px;
-        background: #23463f;
-        border-radius: 15px ;
-
+/* Login Style -RSC */
+#login_form {
+    width: 350px;
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
+#login_form h2 {
+    font-family: "Gill Sans", sans-serif;
+    margin-bottom: 30px;
+    text-align: center;
+    color: #333;
+}
 
-#uname{
-    width: 300px;
-    height: 30px;
+#login_form label {
+    display: none;  /* Hiding labels as they aren't visible in the image */
+}
+
+#login_form input[type="text"],
+#login_form input[type="password"] {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+#login_form button {
+    width: 100%;
+    padding: 15px;
     border: none;
-    border-radius: 3px;
-    padding-left: 8px;
+    border-radius: 25px;
+    background-color: #333e46;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
 }
-#password{
-    width: 300px;
-    height: 30px;
-    border: none;
-    border-radius: 3px;
-    padding-left: 8px;
 
+#login_form a {
+    text-align: center;
+    display: block;
+    margin: 15px 0;
+    color: #1e9bff;
+    text-decoration: none;
 }
-#log{
-    width: 300px;
-    height: 30px;
-    border: none;
-    border-radius: 17px;
-    padding-left: 7px;
-    color: blue;
 
-
-}
-span{
-    color: white;
-    font-size: 17px;
+#login_form a:hover {
+    text-decoration: underline;
 }

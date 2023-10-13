@@ -3,17 +3,24 @@
 
 <head>
     <title> Login page </title>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link href="styles/style.css" type="text/css" rel="stylesheet" />
+
 </head>
 
 <body>
-    <form id="login form" method="post">
+    <!-- <form id="login form" method="post">
         <h2>LOGIN</h2>
         <label> User Name </label>
         <input type="text" name="uname" palceholder="User name"><br>
         <label> Password </label> 
         <input type="password" name="password"palceholder="Password"><br>
 
+        <button type="submit">Login</button>
+    </form> -->
+    <form id="login_form" method="post">
+        <h2>LOGIN</h2>
+        <input type="text" name="uname" placeholder="Username"><br>
+        <input type="password" name="password" placeholder="Password"><br>
         <button type="submit">Login</button>
     </form>
 
